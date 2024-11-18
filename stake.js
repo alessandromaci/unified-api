@@ -1,5 +1,5 @@
-import { generateKeys } from "../babylon/public-key.js";
-import { signTX } from "./babylon/sign.js";
+//import { generateKeys } from "../babylon/public-key.js";
+//import { signTX } from "./babylon/sign.js";
 import axios from "axios";
 import { readFileSync } from "fs";
 
@@ -9,6 +9,12 @@ const API_BASE_URL = config.url;
 const AUTH_TOKEN = config.token;
 const NETWORK = config.network;
 const CHAIN = config.chain;
+const ADDRESS = config.walletAddress;
+const MIN_AMOUNT = config.minAmount;
+
+const currency = {
+  solana: "lamports", //1 SOL = 1000000000 lamports //minimum amount 1.00228288 SOL
+};
 
 // Authorization headers helper
 function getAuthorizationHeaders() {
@@ -25,12 +31,12 @@ async function initiateRequest() {
   const data = {
     chain: CHAIN.solana,
     network: NETWORK,
-    stakerAddress:
-      "tb1pm79ml0vjlm4wgkp4x5476nx46rwuvm52v3ha0ln364lath7wrqmqs05t7e",
-    amount: 30000,
+    stakerAddress: ADDRESS.solana,
+    amount: MIN_AMOUNT.solana,
   };
 
   try {
+    console.log(data);
     const response = await axios.post(url, data, {
       headers: getAuthorizationHeaders(),
     });

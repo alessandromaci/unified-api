@@ -2,7 +2,14 @@
   "privateKey": "cRBHLLKXjsgfcqpSsJPAsUTFtQD2AtiB5WEX8qng3PxjmTyboV92",
   "chain": {
     "solana": "solana",
-    "polygon": "polygon"
+    "polakdot": "polkadot"
+  },
+  "walletAddress": {
+    "solana": "DxEvZCG4WL9VszTB7cerFtLXirB7s1R3Cm1ChJtj5yvJ",
+    "polakdot": "5H6ryBWChC5w7eaQ4GZjo329sEnhvjetSr6MBEt42mZ5tPw5"
+  },
+  "minAmount": {
+    "solana": 1002282880
   },
   "network": "testnet",
   "url": "https://eth2-staking-api-backend.dev-p2p.org/api/v1/unified",
