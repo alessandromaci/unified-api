@@ -1,5 +1,5 @@
-import { generateKeys } from "./public-key.js";
-import { signTX } from "./sign.js";
+import { generateKeys } from "../babylon/public-key.js";
+import { signTX } from "./babylon/sign.js";
 import axios from "axios";
 import { readFileSync } from "fs";
 
@@ -7,6 +7,8 @@ import { readFileSync } from "fs";
 const config = JSON.parse(readFileSync("./config.json", "utf-8"));
 const API_BASE_URL = config.url;
 const AUTH_TOKEN = config.token;
+const NETWORK = config.network;
+const CHAIN = config.chain;
 
 // Authorization headers helper
 function getAuthorizationHeaders() {
@@ -17,17 +19,15 @@ function getAuthorizationHeaders() {
   };
 }
 
-// step1: Retrieve Staker Public Key Address
-const publicKey = generateKeys();
-
+// step 1: initiate the stake request
 async function initiateRequest() {
   const url = `${API_BASE_URL}/staking/stake`;
   const data = {
-    stakerPublicKey: publicKey,
+    chain: CHAIN.solana,
+    network: NETWORK,
     stakerAddress:
       "tb1pm79ml0vjlm4wgkp4x5476nx46rwuvm52v3ha0ln364lath7wrqmqs05t7e",
-    stakeAmount: 30000,
-    stakingDuration: 150,
+    amount: 30000,
   };
 
   try {
@@ -46,10 +46,12 @@ async function initiateRequest() {
 }
 
 async function broadcastTx(txHex) {
-  const url = `${API_BASE_URL}/transaction/send`;
+  const url = `${API_BASE_URL}/transaction/broadcast`;
   const data = {
-    transactionHex: txHex,
-    maxFee: 1000000,
+    chain: CHAIN.solana,
+    network: NETWORK,
+    signedTransaction: txHex,
+    stakerAddress: "",
   };
 
   try {
@@ -75,8 +77,8 @@ async function broadcastTx(txHex) {
 
     // step 3: Sign and Broadcast Transaction
     if (txHex && txHex.stakeTransactionHex) {
-      const signedTx = signTX(txHex.stakeTransactionHex);
-      console.log("Final Signed Transaction:", signedTx);
+      //const signedTx = signTX(txHex.stakeTransactionHex);
+      console.log("UnSigned Transaction:", signedTx);
 
       // if (signedTx) {
       //   const txHash = await broadcastTx(signedTx); // Await broadcastTx

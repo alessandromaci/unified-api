@@ -1,6 +1,10 @@
 {
   "privateKey": "cRBHLLKXjsgfcqpSsJPAsUTFtQD2AtiB5WEX8qng3PxjmTyboV92",
+  "chain": {
+    "solana": "solana",
+    "polygon": "polygon"
+  },
   "network": "testnet",
-  "url": "https://api-test-holesky.p2p.org/api/v1/babylon-btc/testnet",
-  "token": "Bearer 2C45IFhxN83nwrx5yyX64yDX6IQ6O8Ov"
+  "url": "https://eth2-staking-api-backend.dev-p2p.org/api/v1/unified",
+  "token": "Bearer DBGk65vh5CCoAWLIVFWStiIeLGDuPmgL"
 }
