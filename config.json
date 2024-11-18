@@ -1,10 +1,15 @@
 {
-  "privateKey": "cRBHLLKXjsgfcqpSsJPAsUTFtQD2AtiB5WEX8qng3PxjmTyboV92",
+  "walletKey": {
+    "babylon": "cRBHLLKXjsgfcqpSsJPAsUTFtQD2AtiB5WEX8qng3PxjmTyboV92",
+    "solana": "3nZg6PikEbYFo9DavSJofo2sdF2vPG9Dk4Lnq3bcCHbcHiTsKi88kuvqADttBUnoc6YXUT1BmjLFd4JyZzKDafCN"
+  },
   "chain": {
+    "babylon": "babylon",
     "solana": "solana",
     "polakdot": "polkadot"
   },
   "walletAddress": {
+    "babylon": "",
     "solana": "DxEvZCG4WL9VszTB7cerFtLXirB7s1R3Cm1ChJtj5yvJ",
     "polakdot": "5H6ryBWChC5w7eaQ4GZjo329sEnhvjetSr6MBEt42mZ5tPw5"
   },

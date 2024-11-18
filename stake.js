@@ -1,5 +1,5 @@
-//import { generateKeys } from "../babylon/public-key.js";
-//import { signTX } from "./babylon/sign.js";
+import { generateKeys } from "./sign_modules/babylon/public-key.js";
+import { signTX } from "./sign_modules/babylon/sign.js";
 import axios from "axios";
 import { readFileSync } from "fs";
 
