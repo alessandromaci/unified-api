@@ -4,7 +4,7 @@ import { signPolkadot } from "./sign_modules/polkadot/sign.js";
 import axios from "axios";
 import { readFileSync } from "fs";
 
-let blockchain = "polkadot";
+let blockchain = "cosmos";
 
 // Constants
 const config = JSON.parse(readFileSync("./config.json", "utf-8"));
@@ -16,6 +16,8 @@ const ADDRESS = config.walletAddress;
 const MIN_AMOUNT = config.minAmount;
 
 const currency = {
+  cosmos: "atom", //1 ATOM = 1 ATOM
+  polygon: "wei", //1 MATIC = 1000000000000000000 wei
   solana: "lamports", //1 SOL = 1000000000 lamports //minimum amount 1.00228288 SOL
   polkadot: "dot", //1 DOT = 1 DOT //minimum amount no
 };
@@ -87,8 +89,9 @@ async function broadcastTx(txHex) {
 
     // step 3: Sign and Broadcast Transaction
     if (txHex && txHex.extraData.unsignedTransaction) {
-      const signedTx = signPolkadot(txHex.extraData.unsignedTransaction);
-      console.log("Signed Transaction:", signedTx);
+      //const signedTx = signPolkadot(txHex.extraData.unsignedTransaction);
+      //console.log("Signed Transaction:", signedTx);
+      console.log("Ready to sign");
 
       // if (signedTx) {
       //   const txHash = await broadcastTx(signedTx); // Await broadcastTx

@@ -1,24 +1,30 @@
 {
   "walletPrivateKey": {
-    "babylon": "cRBHLLKXjsgfcqpSsJPAsUTFtQD2AtiB5WEX8qng3PxjmTyboV92",
-    "solana": "3nZg6PikEbYFo9DavSJofo2sdF2vPG9Dk4Lnq3bcCHbcHiTsKi88kuvqADttBUnoc6YXUT1BmjLFd4JyZzKDafCN",
+    "polygon": "",
+    "solana": "",
     "polkadot": ""
   },
   "chain": {
-    "babylon": "babylon",
+    "cosmos": "cosmos",
+    "polygon": "polygon",
     "solana": "solana",
     "polkadot": "polkadot"
   },
   "network": {
+    "cosmos": "theta-testnet-001",
+    "polygon": "polygon",
     "solana": "testnet",
     "polkadot": "westend"
   },
   "walletAddress": {
-    "babylon": "",
+    "cosmos": "cosmos1y9wefmlpm0djkt8sseeveke0httfukg2a60g0r",
+    "polygon": "0x338EF19fA2eC0fc4d1277B1307a613fA1FBbc0cb",
     "solana": "4ETf86tK7b4W72f27kNLJLgRWi9UfJjgH4koHGUXMFtn",
     "polkadot": "5HK2ezknv9mUS2ReC7XbxdSVfNS81NftwkaQ1tLNn23Uz8G3"
   },
   "minAmount": {
+    "cosmos": 0.0042,
+    "polygon": 1000000000000000000,
     "solana": 1002282880,
     "polkadot": 1
   },
