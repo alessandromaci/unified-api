@@ -1,7 +1,10 @@
-import { generateKeys } from "./sign_modules/babylon/public-key.js";
-import { signTX } from "./sign_modules/babylon/sign.js";
+//import { generateKeys } from "./sign_modules/babylon/public-key.js";
+//import { signTX } from "./sign_modules/babylon/sign.js";
+import { signPolkadot } from "./sign_modules/polkadot/sign.js";
 import axios from "axios";
 import { readFileSync } from "fs";
+
+let blockchain = "polkadot";
 
 // Constants
 const config = JSON.parse(readFileSync("./config.json", "utf-8"));
@@ -14,6 +17,7 @@ const MIN_AMOUNT = config.minAmount;
 
 const currency = {
   solana: "lamports", //1 SOL = 1000000000 lamports //minimum amount 1.00228288 SOL
+  polkadot: "dot", //1 DOT = 1 DOT //minimum amount no
 };
 
 // Authorization headers helper
@@ -29,10 +33,10 @@ function getAuthorizationHeaders() {
 async function initiateRequest() {
   const url = `${API_BASE_URL}/staking/stake`;
   const data = {
-    chain: CHAIN.solana,
-    network: NETWORK,
-    stakerAddress: ADDRESS.solana,
-    amount: MIN_AMOUNT.solana,
+    chain: CHAIN[blockchain],
+    network: NETWORK[blockchain],
+    stakerAddress: ADDRESS[blockchain],
+    amount: MIN_AMOUNT[blockchain],
   };
 
   try {
@@ -82,9 +86,9 @@ async function broadcastTx(txHex) {
     const txHex = await initiateRequest();
 
     // step 3: Sign and Broadcast Transaction
-    if (txHex && txHex.stakeTransactionHex) {
-      //const signedTx = signTX(txHex.stakeTransactionHex);
-      console.log("UnSigned Transaction:", signedTx);
+    if (txHex && txHex.extraData.unsignedTransaction) {
+      const signedTx = signPolkadot(txHex.extraData.unsignedTransaction);
+      console.log("Signed Transaction:", signedTx);
 
       // if (signedTx) {
       //   const txHash = await broadcastTx(signedTx); // Await broadcastTx

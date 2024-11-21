@@ -11,6 +11,8 @@
     "bip32": "^5.0.0-rc.0",
     "bitcoinjs-lib": "^7.0.0-rc.0",
     "ecpair": "^3.0.0-rc.0",
-    "tiny-secp256k1": "^2.2.3"
+    "tiny-secp256k1": "^2.2.3",
+    "@polkadot/api": "^10.9.1",
+    "@substrate/txwrapper-polkadot": "7.0.1"
   }
 }
