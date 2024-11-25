@@ -5,14 +5,29 @@
   "main": "index.js",
   "author": "alessandromaci <alessandro.maci@p2p.org>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "@okxweb3/coin-bitcoin": "^1.0.32",
-    "axios": "^1.7.7",
+    "@polkadot/api": "^10.13.1",
+    "@polkadot/api-augment": "^14.3.1",
+    "@solana/web3.js": "^1.95.5",
+    "@substrate/txwrapper-polkadot": "7.0.1",
     "bip32": "^5.0.0-rc.0",
     "bitcoinjs-lib": "^7.0.0-rc.0",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.5",
     "ecpair": "^3.0.0-rc.0",
-    "tiny-secp256k1": "^2.2.3",
-    "@polkadot/api": "^10.9.1",
-    "@substrate/txwrapper-polkadot": "7.0.1"
+    "ethers": "^6.13.4",
+    "tiny-secp256k1": "^2.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "axios": "^1.7.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3"
   }
 }

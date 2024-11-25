@@ -1,0 +1,21 @@
+{
+  "verbose": true,
+  "moduleFileExtensions": [
+    "js",
+    "json"
+  ],
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
+  "testRegex": "/__tests__/.*\\.(test|spec)\\.js$",
+  "collectCoverageFrom": [
+    "**/*.{js,jsx}",
+    "!**/node_modules/**",
+    "!**/vendor/**"
+  ],
+  "coverageReporters": [
+    "json",
+    "lcov"
+  ],
+  "testEnvironment": "node"
+}

@@ -1,18 +1,36 @@
-const web3 = require("@solana/web3.js");
-const bs58 = require("bs58");
-const { Transaction } = web3(async () => {
-  // base58 signer private keys devided by comma `,`
-  const privateKeys = process.env.PRIVATE_KEYS;
-  // base64 unsigned transaction
-  const transaction = process.env.TX;
+import { Keypair, Transaction } from "@solana/web3.js";
+import bs58 from "bs58";
+import { getValidatedEnvVars } from "../../utils/envValidator.js";
+import { logInfo, logError } from "../../utils/logger.js";
 
-  let tx = Transaction.from(Buffer.from(transaction, "base64"));
+/**
+ * Sign a raw transaction for the Solana blockchain.
+ * @param {string} rawTransaction - The raw transaction in base64 format.
+ * @returns {Promise<string>} The signed transaction in base64 format.
+ */
+export async function signTransaction(rawTransaction) {
+  try {
+    // Validate required environment variables
+    const envVars = getValidatedEnvVars(["SIGN_SOLANA_PRIVATE_KEYS"]);
+    const { SIGN_SOLANA_PRIVATE_KEYS: privateKeys } = envVars;
 
-  // sign transaction for each signer
-  for (const pk of privateKeys) {
-    const signer = web3.Keypair.fromSecretKey(new Uint8Array(bs58.decode(pk)));
-    tx.sign(signer);
+    logInfo("Parsing private keys...");
+    const signers = privateKeys
+      .split(",")
+      .map((key) => Keypair.fromSecretKey(bs58.decode(key)));
+
+    logInfo("Deserializing transaction...");
+    const tx = Transaction.from(Buffer.from(rawTransaction, "base64"));
+
+    logInfo("Signing transaction with all provided signers...");
+    signers.forEach((signer) => tx.sign(signer));
+
+    const signedTransaction = tx.serialize().toString("base64");
+    logInfo("Signed transaction (Base64):", signedTransaction);
+
+    return signedTransaction;
+  } catch (error) {
+    logError(`Failed to sign Solana transaction: ${error.message}`);
+    throw error;
   }
-  // print signed transaction
-  console.log(tx.serialize().toString("base64"));
-})();
+}

@@ -5,24 +5,28 @@
     "polkadot": ""
   },
   "chain": {
+    "avail": "avail",
     "cosmos": "cosmos",
     "polygon": "polygon",
     "solana": "solana",
     "polkadot": "polkadot"
   },
   "network": {
+    "avail": "testnet",
     "cosmos": "theta-testnet-001",
     "polygon": "polygon",
     "solana": "testnet",
     "polkadot": "westend"
   },
   "walletAddress": {
+    "avail": "5H6ryBWChC5w7eaQ4GZjo329sEnhvjetSr6MBEt42mZ5tPw5",
     "cosmos": "cosmos1y9wefmlpm0djkt8sseeveke0httfukg2a60g0r",
     "polygon": "0x338EF19fA2eC0fc4d1277B1307a613fA1FBbc0cb",
     "solana": "4ETf86tK7b4W72f27kNLJLgRWi9UfJjgH4koHGUXMFtn",
     "polkadot": "5HK2ezknv9mUS2ReC7XbxdSVfNS81NftwkaQ1tLNn23Uz8G3"
   },
   "minAmount": {
+    "avail": 1000,
     "cosmos": 0.0042,
     "polygon": 1000000000000000000,
     "solana": 1002282880,
