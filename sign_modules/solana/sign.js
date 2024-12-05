@@ -6,13 +6,16 @@ import { logInfo, logError } from "../../utils/logger.js";
 /**
  * Sign a raw transaction for the Solana blockchain.
  * @param {string} rawTransaction - The raw transaction in base64 format.
+ * @param {string} blockchain
+ * @param config
  * @returns {Promise<string>} The signed transaction in base64 format.
  */
-export async function signTransaction(rawTransaction) {
+export async function signTransaction(rawTransaction, blockchain, config) {
   try {
     // Validate required environment variables
-    const envVars = getValidatedEnvVars(["SIGN_SOLANA_PRIVATE_KEYS"]);
-    const { SIGN_SOLANA_PRIVATE_KEYS: privateKeys } = envVars;
+    const { SIGN_SOLANA_PRIVATE_KEYS: privateKeys } = getValidatedEnvVars([
+      "SIGN_SOLANA_PRIVATE_KEYS",
+    ]);
 
     logInfo("Parsing private keys...");
     const signers = privateKeys
