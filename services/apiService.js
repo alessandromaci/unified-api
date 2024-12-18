@@ -9,7 +9,13 @@ export const getAuthorizationHeaders = (authToken) => ({
 export const initiateStakeRequest = async (url, requestData, headers) => {
   try {
     const response = await axios.post(url, requestData, { headers });
-    return response.data.result?.unsignedTransactionData || null;
+
+    const chainResponseKey = {
+      polkadot: response.data.result?.extraData?.unsignedTransaction,
+      default: response.data.result?.unsignedTransactionData,
+    };
+
+    return chainResponseKey[requestData.chain] || chainResponseKey.default;
   } catch (error) {
     throw new Error(
       `Stake request failed: ${error.response?.data?.error?.message || error.message}`,
