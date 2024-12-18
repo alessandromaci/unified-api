@@ -9,7 +9,11 @@ import { logInfo } from "../../utils/logger.js";
  * @returns {Promise<`0x${string}`>}
  */
 export async function signTransaction(rawTransaction) {
-  const { provider, secretFileName, password } = getValidatedEnvVars([
+  const {
+    SIGN_POLKADOT_PROVIDER: provider,
+    SIGN_POLKADOT_SECRET_FILE_NAME: secretFileName,
+    SIGN_POLKADOT_PASSWORD: password,
+  } = getValidatedEnvVars([
     "SIGN_POLKADOT_PROVIDER",
     "SIGN_POLKADOT_SECRET_FILE_NAME",
     "SIGN_POLKADOT_PASSWORD",

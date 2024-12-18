@@ -8,7 +8,11 @@ import { getValidatedEnvVars } from "../../utils/envValidator.js";
  * @returns {Promise<`0x${string}`>}
  */
 export const signTransaction = async (rawTransaction) => {
-  const { provider, secretFileName, password } = getValidatedEnvVars([
+  const {
+    SIGN_AVAIL_PROVIDER: provider,
+    SIGN_AVAIL_SECRET_FILE_NAME: secretFileName,
+    SIGN_AVAIL_PASSWORD: password,
+  } = getValidatedEnvVars([
     "SIGN_AVAIL_PROVIDER",
     "SIGN_AVAIL_SECRET_FILE_NAME",
     "SIGN_AVAIL_PASSWORD",
