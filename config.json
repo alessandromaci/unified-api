@@ -14,6 +14,18 @@
   "poolLink": {
     "solana": "https://solscan.io/tx/%s?cluster=testnet"
   },
+  "extraParams": {
+    "solana": {
+      "unstake": {
+        "amount": "1002282880",
+        "stakeAccount": "FAjpix9NL368KDYxnD9vzAeedRXBuzruapLAEBh4wHCQ"
+      },
+      "withdraw": {
+        "amount": "1002282880",
+        "stakeAccount": "FAjpix9NL368KDYxnD9vzAeedRXBuzruapLAEBh4wHCQ"
+      }
+    }
+  },
   "url": "https://eth2-staking-api-backend.dev-p2p.org/api/v1/unified",
   "token": "Bearer DBGk65vh5CCoAWLIVFWStiIeLGDuPmgL"
 }

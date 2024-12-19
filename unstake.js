@@ -1,9 +1,13 @@
 import { readFileSync } from "fs";
-import { handleStakingFlow } from "./services/blockchainHandler.js";
+import {
+  handleUnstakingFlow,
+  handleWithdrawFlow,
+} from "./services/blockchainHandler.js";
 import { logError, logInfo } from "./utils/logger.js";
+import { hideBin } from "yargs/helpers";
 import dotenv from "dotenv";
 import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
+import { sleep } from "./utils/common.js";
 
 dotenv.config();
 
@@ -13,7 +17,7 @@ const { chain } = config;
 const argv = yargs(hideBin(process.argv))
   .option("network", {
     type: "string",
-    description: "Network to perform staking",
+    description: "Network to perform unstaking",
     demandOption: true,
   })
   .help()
@@ -30,9 +34,14 @@ const argv = yargs(hideBin(process.argv))
     }
 
     logInfo(
-      `Starting staking flow for blockchain: ${blockchain.toUpperCase()}`,
+      `Starting unstaking flow for blockchain: ${blockchain.toUpperCase()}`,
     );
-    await handleStakingFlow(blockchain, config);
+    await handleUnstakingFlow(blockchain, config);
+    logInfo(
+      `Wait for 10 seconds to start withdraw process for blockchain: ${blockchain.toUpperCase()}`,
+    );
+    await sleep(10);
+    await handleWithdrawFlow(blockchain, config);
   } catch (error) {
     logError(`Error: ${error.message}`);
     process.exit(1);

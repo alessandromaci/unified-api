@@ -23,6 +23,40 @@ export const initiateStakeRequest = async (url, requestData, headers) => {
   }
 };
 
+export const initiateUnstakeRequest = async (url, requestData, headers) => {
+  try {
+    const response = await axios.post(url, requestData, { headers });
+
+    const chainResponseKey = {
+      polkadot: response.data.result?.extraData?.unsignedTransaction,
+      default: response.data.result?.unsignedTransactionData,
+    };
+
+    return chainResponseKey[requestData.chain] || chainResponseKey.default;
+  } catch (error) {
+    throw new Error(
+      `Stake request failed: ${error.response?.data?.error?.message || error.message}`,
+    );
+  }
+};
+
+export const initiateWithdrawRequest = async (url, requestData, headers) => {
+  try {
+    const response = await axios.post(url, requestData, { headers });
+
+    const chainResponseKey = {
+      polkadot: response.data.result?.extraData?.unsignedTransaction,
+      default: response.data.result?.unsignedTransactionData,
+    };
+
+    return chainResponseKey[requestData.chain] || chainResponseKey.default;
+  } catch (error) {
+    throw new Error(
+      `Stake request failed: ${error.response?.data?.error?.message || error.message}`,
+    );
+  }
+};
+
 export const broadcastTransaction = async (url, broadcastData, headers) => {
   try {
     const response = await axios.post(url, broadcastData, { headers });

@@ -2,12 +2,59 @@ import {
   getAuthorizationHeaders,
   initiateStakeRequest,
   broadcastTransaction,
+  initiateUnstakeRequest,
+  initiateWithdrawRequest,
 } from "./apiService.js";
 import { loadSigner } from "./signingService.js";
 import { logInfo, logError } from "../utils/logger.js";
 import { format } from "util";
 
-export const handleStakingFlow = async (blockchain, config) => {
+/**
+ * Handle the staking flow.
+ * @param {string} blockchain - The blockchain to handle.
+ * @param {object} config - The configuration for staking.
+ * @returns {Promise<string>} The transaction hash.
+ */
+export const handleStakingFlow = (blockchain, config) =>
+  handleTransactionFlow("stake", blockchain, config, initiateStakeRequest);
+
+/**
+ * Handle the unstaking flow.
+ * @param {string} blockchain - The blockchain to handle.
+ * @param {object} config - The configuration for unstaking.
+ * @returns {Promise<string>} The transaction hash.
+ */
+export const handleUnstakingFlow = (blockchain, config) =>
+  handleTransactionFlow("unstake", blockchain, config, initiateUnstakeRequest);
+
+/**
+ * Handle the withdraw flow.
+ * @param {string} blockchain - The blockchain to handle.
+ * @param {object} config - The configuration for withdrawal.
+ * @returns {Promise<string>} The transaction hash.
+ */
+export const handleWithdrawFlow = (blockchain, config) =>
+  handleTransactionFlow(
+    "withdraw",
+    blockchain,
+    config,
+    initiateWithdrawRequest,
+  );
+
+/**
+ * A generic function to handle transaction flows.
+ * @param {string} action - The type of action ('stake', 'unstake', or 'withdraw').
+ * @param {string} blockchain - The blockchain to handle.
+ * @param {object} config - The configuration for the action.
+ * @param {Function} initiateTransaction - The function to initiate the transaction.
+ * @returns {Promise<string>} The transaction hash.
+ */
+async function handleTransactionFlow(
+  action,
+  blockchain,
+  config,
+  initiateTransaction,
+) {
   const {
     chain,
     network,
@@ -18,11 +65,13 @@ export const handleStakingFlow = async (blockchain, config) => {
     token,
     extraParams,
   } = config;
+
   const headers = getAuthorizationHeaders(token);
 
   try {
-    logInfo(`Initiating stake request for ${blockchain}...`);
-    const requestStakeData = buildStakeRequestData(
+    logInfo(`Initiating ${action} request for ${blockchain}...`);
+    const requestData = buildRequestData(
+      action,
       blockchain,
       chain,
       network,
@@ -30,9 +79,9 @@ export const handleStakingFlow = async (blockchain, config) => {
       minAmount,
       extraParams,
     );
-    const unsignedTransaction = await initiateStakeRequest(
-      `${url}/staking/stake`,
-      requestStakeData,
+    const unsignedTransaction = await initiateTransaction(
+      `${url}/staking/${action}`,
+      requestData,
       headers,
     );
 
@@ -69,18 +118,31 @@ export const handleStakingFlow = async (blockchain, config) => {
     const link = poolLink[blockchain]
       ? format(poolLink[blockchain], txHash)
       : null;
-    if (!!link) {
+    if (link) {
       logInfo(`Check transaction link: ${link}`);
     }
 
     return txHash;
   } catch (error) {
-    logError(`Staking flow failed for ${blockchain}: ${error.message}`);
-    throw error;
+    logError(
+      `${action.charAt(0).toUpperCase() + action.slice(1)} flow failed for ${blockchain}: ${error.message}`,
+    );
   }
-};
+}
 
-function buildStakeRequestData(
+/**
+ * Builds request data for stake, unstake, or withdraw actions.
+ * @param {string} action - The type of action ('stake', 'unstake', or 'withdraw').
+ * @param {string} blockchain - The blockchain to handle.
+ * @param {object} chain - The chain configuration.
+ * @param {object} network - The network configuration.
+ * @param {object} walletAddress - The wallet address for the blockchain.
+ * @param {object} minAmount - The minimum amount for the blockchain.
+ * @param {object} extraParams - Extra parameters for the blockchain.
+ * @returns {object} The request data.
+ */
+function buildRequestData(
+  action,
   blockchain,
   chain,
   network,
@@ -95,7 +157,7 @@ function buildStakeRequestData(
     amount: minAmount[blockchain],
   };
 
-  const extra = extraParams?.[blockchain]?.["stake"];
+  const extra = extraParams?.[blockchain]?.[action];
   if (extra && Object.keys(extra).length > 0) {
     requestData.extra = extra;
   }
@@ -103,6 +165,16 @@ function buildStakeRequestData(
   return requestData;
 }
 
+/**
+ * Builds broadcast request data.
+ * @param {string} blockchain - The blockchain to handle.
+ * @param {object} chain - The chain configuration.
+ * @param {object} network - The network configuration.
+ * @param {object} walletAddress - The wallet address for the blockchain.
+ * @param {string} signedTransaction - The signed transaction data.
+ * @param {object} extraParams - Extra parameters for the blockchain.
+ * @returns {object} The broadcast request data.
+ */
 function buildBroadcastRequestData(
   blockchain,
   chain,

@@ -42,7 +42,7 @@ Refer to the ```config.json``` for blockchain-specific configuration details.
 ### 4. Run the Staking Script
 Use the stake.js script to interact with the staking API. Example:
 ```bash
-node stake.js <blockchain>
+node stake.js --network=<blockchain>
 ```
 Replace <blockchain> with the supported blockchain name (e.g., polkadot, solana).
 
