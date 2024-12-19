@@ -14,6 +14,8 @@
     "@polkadot/api-augment": "^14.3.1",
     "@solana/web3.js": "^1.95.5",
     "@substrate/txwrapper-polkadot": "7.0.1",
+    "@ton/core": "^0.59.0",
+    "@ton/crypto": "^3.3.0",
     "bip32": "^5.0.0-rc.0",
     "bip39": "^3.1.0",
     "bitcoinjs-lib": "^7.0.0-rc.0",

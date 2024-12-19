@@ -1,18 +1,28 @@
 {
   "chain": {
-    "solana": "solana"
+    "solana": "solana",
+    "babylon": "babylon-btc",
+    "ton": "ton_whales"
   },
   "network": {
-    "solana": "testnet"
+    "solana": "testnet",
+    "babylon": "testnet",
+    "ton": "testnet"
   },
   "walletAddress": {
-    "solana": "9FfyCk9kqgfpg1gYMw8rhksZcAg4JiD9xhuMvkFVdjQY"
+    "solana": "9FfyCk9kqgfpg1gYMw8rhksZcAg4JiD9xhuMvkFVdjQY",
+    "babylon": "tb1paty3ht42hj74lfq7608v6uhmlry6yn4hpxefa32ucqyzldzaqrks3juxrs",
+    "ton": "0QCCKVPYigokJpkKL8rtSHImnQZ-9NSWY7hpyNXYDGD_lsZu"
   },
   "minAmount": {
-    "solana": 1002282880
+    "solana": 1002282880,
+    "babylon": 30000,
+    "ton": 5000000000
   },
   "poolLink": {
-    "solana": "https://solscan.io/tx/%s?cluster=testnet"
+    "solana": "https://solscan.io/tx/%s?cluster=testnet",
+    "babylon": "https://mempool.space/signet/tx/%s",
+    "ton": "https://testnet.tonviewer.com/transaction/%s"
   },
   "extraParams": {
     "solana": {
@@ -23,6 +33,21 @@
       "withdraw": {
         "amount": "1002282880",
         "stakeAccount": "FAjpix9NL368KDYxnD9vzAeedRXBuzruapLAEBh4wHCQ"
+      }
+    },
+    "babylon": {
+      "stake": {
+        "stakerPublicKey": "0384b203765094496a32cf8817fba045d0bc8a4dab3256551c41f05a8536141c98"
+      }
+    },
+    "ton": {
+      "stake": {
+        "publicKey": "d475995e563a136c649dd63e1e6b94ceb373878efba7d2b3a1445a825aa8592c",
+        "walletVersion": "V4"
+      },
+      "broadcast": {
+        "publicKey": "d475995e563a136c649dd63e1e6b94ceb373878efba7d2b3a1445a825aa8592c",
+        "walletVersion": "V4"
       }
     }
   },

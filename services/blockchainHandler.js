@@ -106,15 +106,20 @@ async function handleTransactionFlow(
       network,
       walletAddress,
       signedTransaction,
+      unsignedTransaction,
       extraParams,
     );
+
     const txHash = await broadcastTransaction(
       `${url}/transaction/broadcast`,
       requestBroadcastData,
       headers,
     );
 
-    logInfo(`Transaction successfully broadcasted. Hash: ${txHash}`);
+    logInfo(`Transaction successfully broadcasted.`);
+    if (txHash) {
+      logInfo(`Hash: ${txHash}`);
+    }
     const link = poolLink[blockchain]
       ? format(poolLink[blockchain], txHash)
       : null;
@@ -172,6 +177,7 @@ function buildRequestData(
  * @param {object} network - The network configuration.
  * @param {object} walletAddress - The wallet address for the blockchain.
  * @param {string} signedTransaction - The signed transaction data.
+ * @param {string} unsignedTransaction - The unsigned transaction data.
  * @param {object} extraParams - Extra parameters for the blockchain.
  * @returns {object} The broadcast request data.
  */
@@ -181,6 +187,7 @@ function buildBroadcastRequestData(
   network,
   walletAddress,
   signedTransaction,
+  unsignedTransaction,
   extraParams,
 ) {
   const requestData = {
@@ -193,6 +200,10 @@ function buildBroadcastRequestData(
   const extra = extraParams?.[blockchain]?.["broadcast"];
   if (extra && Object.keys(extra).length > 0) {
     requestData.extra = extra;
+  }
+
+  if (blockchain === "ton") {
+    requestData.extra.unsignedTransaction = unsignedTransaction;
   }
 
   return requestData;
