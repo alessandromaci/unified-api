@@ -1,3 +1,5 @@
 node_modules
 .idea
 .env
+.config_backup.json
+.env_backup

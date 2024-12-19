@@ -1,0 +1,47 @@
+{
+  "chain": {
+    "babylon": "babylon-btc",
+    "avail": "avail",
+    "cosmos": "cosmos",
+    "polygon": "polygon",
+    "solana": "solana",
+    "polkadot": "polkadot"
+  },
+  "network": {
+    "babylon": "testnet",
+    "avail": "testnet",
+    "cosmos": "theta-testnet-001",
+    "polygon": "polygon",
+    "solana": "testnet",
+    "polkadot": "westend"
+  },
+  "walletAddress": {
+    "babylon": "tb1paty3ht42hj74lfq7608v6uhmlry6yn4hpxefa32ucqyzldzaqrks3juxrs",
+    "avail": "5H6ryBWChC5w7eaQ4GZjo329sEnhvjetSr6MBEt42mZ5tPw5",
+    "cosmos": "cosmos1y9wefmlpm0djkt8sseeveke0httfukg2a60g0r",
+    "polygon": "0x338EF19fA2eC0fc4d1277B1307a613fA1FBbc0cb",
+    "solana": "9i5cTqci1W6DHdYfT7WbiNhP5DXvnPNTXvS9fTBFfuSw",
+    "polkadot": "5HK2ezknv9mUS2ReC7XbxdSVfNS81NftwkaQ1tLNn23Uz8G3"
+  },
+  "minAmount": {
+    "babylon": 30000,
+    "avail": 1000,
+    "cosmos": 0.0042,
+    "polygon": 1000000000000000000,
+    "solana": 1002282880,
+    "polkadot": 1
+  },
+  "poolLink": {
+    "babylon": "https://mempool.space/signet/tx/%s",
+    "solana": "https://solscan.io/tx/%s?cluster=testnet"
+  },
+  "extraParams": {
+    "babylon": {
+      "stake": {
+        "stakerPublicKey": "0384b203765094496a32cf8817fba045d0bc8a4dab3256551c41f05a8536141c98"
+      }
+    }
+  },
+  "url": "https://eth2-staking-api-backend.dev-p2p.org/api/v1/unified",
+  "token": "Bearer DBGk65vh5CCoAWLIVFWStiIeLGDuPmgL"
+}
