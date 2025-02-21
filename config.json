@@ -2,35 +2,40 @@
   "walletPrivateKey": {
     "polygon": "",
     "solana": "",
-    "polkadot": ""
+    "polkadot": "",
+    "near": ""
   },
   "chain": {
     "avail": "avail",
     "cosmos": "cosmos",
     "polygon": "polygon",
     "solana": "solana",
-    "polkadot": "polkadot"
+    "polkadot": "polkadot",
+    "near": "near"
   },
   "network": {
     "avail": "testnet",
     "cosmos": "theta-testnet-001",
     "polygon": "polygon",
     "solana": "testnet",
-    "polkadot": "westend"
+    "polkadot": "westend",
+    "near": "mainnet"
   },
   "walletAddress": {
     "avail": "5H6ryBWChC5w7eaQ4GZjo329sEnhvjetSr6MBEt42mZ5tPw5",
     "cosmos": "cosmos1y9wefmlpm0djkt8sseeveke0httfukg2a60g0r",
     "polygon": "0x338EF19fA2eC0fc4d1277B1307a613fA1FBbc0cb",
     "solana": "4ETf86tK7b4W72f27kNLJLgRWi9UfJjgH4koHGUXMFtn",
-    "polkadot": "5HK2ezknv9mUS2ReC7XbxdSVfNS81NftwkaQ1tLNn23Uz8G3"
+    "polkadot": "5HK2ezknv9mUS2ReC7XbxdSVfNS81NftwkaQ1tLNn23Uz8G3",
+    "near": "c9cd49da4fb3cade542d625fa909ac443e77a1cb10e0287df6c5b8df7e4cc040"
   },
   "minAmount": {
     "avail": 1000,
     "cosmos": 0.0042,
     "polygon": 1000000000000000000,
     "solana": 1002282880,
-    "polkadot": 1
+    "polkadot": 1,
+    "near": 1
   },
   "url": "https://eth2-staking-api-backend.dev-p2p.org/api/v1/unified",
   "token": "Bearer DBGk65vh5CCoAWLIVFWStiIeLGDuPmgL"

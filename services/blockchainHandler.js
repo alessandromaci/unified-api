@@ -1,10 +1,10 @@
 import {
+  broadcastTransaction,
   getAuthorizationHeaders,
   initiateStakeRequest,
-  broadcastTransaction,
 } from "./apiService.js";
 import { loadSigner } from "./signingService.js";
-import { logInfo, logError } from "../utils/logger.js";
+import { logError, logInfo } from "../utils/logger.js";
 
 export const handleStakingFlow = async (blockchain, config) => {
   const { chain, network, walletAddress, minAmount, url, token } = config;
@@ -13,18 +13,10 @@ export const handleStakingFlow = async (blockchain, config) => {
   try {
     logInfo(`Initiating stake request for ${blockchain}...`);
     const stakeUrl = `${url}/staking/stake`;
-    const requestData = {
-      chain: chain[blockchain],
-      network: network[blockchain],
-      stakerAddress: walletAddress[blockchain],
-      amount: minAmount[blockchain],
-    };
+    const stakeRequestData = buildStakeRequestData(blockchain, config);
 
-    const unsignedTransaction = await initiateStakeRequest(
-      stakeUrl,
-      requestData,
-      headers,
-    );
+    const { unsignedTransactionData: unsignedTransaction, extraData } =
+      await initiateStakeRequest(stakeUrl, stakeRequestData, headers);
     if (!unsignedTransaction) throw new Error("No unsigned transaction found");
 
     logInfo("Unsigned transaction retrieved. Loading signer...");
@@ -35,16 +27,16 @@ export const handleStakingFlow = async (blockchain, config) => {
 
     logInfo("Broadcasting signed transaction...");
     const broadcastUrl = `${url}/transaction/broadcast`;
-    const broadcastData = {
-      chain: chain[blockchain],
-      network: network[blockchain],
+    const broadcastRequestData = buildBroadcastRequestData(
+      blockchain,
+      config,
       signedTransaction,
-      stakerAddress: walletAddress[blockchain],
-    };
+      extraData,
+    );
 
     const txHash = await broadcastTransaction(
       broadcastUrl,
-      broadcastData,
+      broadcastRequestData,
       headers,
     );
     logInfo(`Transaction successfully broadcasted. Hash: ${txHash}`);
@@ -53,4 +45,36 @@ export const handleStakingFlow = async (blockchain, config) => {
     logError(`Staking flow failed for ${blockchain}: ${error.message}`);
     throw error;
   }
+};
+
+const buildStakeRequestData = (blockchain, config) => {
+  const { chain, network, walletAddress, minAmount } = config;
+  return {
+    chain: chain[blockchain],
+    network: network[blockchain],
+    stakerAddress: walletAddress[blockchain],
+    amount: minAmount[blockchain],
+  };
+};
+
+const buildBroadcastRequestData = (
+  blockchain,
+  config,
+  signedTransaction,
+  extraData,
+) => {
+  const { chain, network, walletAddress, minAmount } = config;
+  const broadcastData = {
+    chain: chain[blockchain],
+    network: network[blockchain],
+    signedTransaction,
+    stakerAddress: walletAddress[blockchain],
+  };
+
+  if (extraData?.transactionId && chain[blockchain] === "near") {
+    broadcastData.extra = {};
+    broadcastData.extra.transactionId = extraData?.transactionId;
+  }
+
+  return broadcastData;
 };
